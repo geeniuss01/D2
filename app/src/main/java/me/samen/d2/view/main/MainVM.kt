@@ -7,7 +7,7 @@ import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import me.samen.d2.data.daos.ThingDao
+import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 
 class MainVM(
