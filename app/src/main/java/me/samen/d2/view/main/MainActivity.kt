@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             adapter = mAdapter
         }
         vm.fetch().observe(this, Observer {
-            mAdapter.update(it)
+            mAdapter.submitList(it)
         })
         //vm.ins(Thing(1, "evt", "hello world", "#building_app", "", "@me"))
     }

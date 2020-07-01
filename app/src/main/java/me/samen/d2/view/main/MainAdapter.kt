@@ -1,10 +1,11 @@
 package me.samen.d2.view.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import me.samen.d2.R
 import me.samen.d2.data.entities.Thing
@@ -12,29 +13,35 @@ import me.samen.d2.databinding.MainRowBinding
 
 // TODO(satosh.dhanyamraju): use pagination; diffutils callbacks
 
-class MainAdapter(private val vm : MainVM,
-private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MainVH>() {
-    private val list = arrayListOf<Thing>()
-
+class MainAdapter(
+    private val vm: MainVM,
+    private val lifecycleOwner: LifecycleOwner
+) : PagedListAdapter<Thing, MainVH>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainVH {
-        val binding = DataBindingUtil.inflate<MainRowBinding>(LayoutInflater.from(parent.context),
+        val binding = DataBindingUtil.inflate<MainRowBinding>(
+            LayoutInflater.from(parent.context),
             R.layout.main_row,
-            parent, false)
+            parent, false
+        )
         return MainVH(binding)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: MainVH, position: Int) {
-        holder.bind(list[position], vm)
+        holder.bind(getItem(position), vm)
     }
 
-    fun update(l: List<Thing>) {
-        list.clear()
-        list.addAll(l)
-        notifyDataSetChanged()
+    companion object {
+        private val DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<Thing>() {
+            override fun areItemsTheSame(oldItem: Thing, newItem: Thing): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Thing, newItem: Thing): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 }
 
@@ -43,9 +50,11 @@ private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MainVH>() {
 class MainVH(
     private val mainRowBinding: MainRowBinding
 ) : RecyclerView.ViewHolder(mainRowBinding.root) {
-    fun bind(thing: Thing, vm: MainVM) {
-        mainRowBinding.d = thing
-        mainRowBinding.vm = vm
-        mainRowBinding.executePendingBindings()
+    fun bind(thing: Thing?, vm: MainVM) {
+        thing?.run {
+            mainRowBinding.d = thing
+            mainRowBinding.vm = vm
+            mainRowBinding.executePendingBindings()
+        }
     }
 }

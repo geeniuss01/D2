@@ -3,6 +3,8 @@ package me.samen.d2.view.main
 import android.app.Application
 import android.view.View
 import androidx.lifecycle.*
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.samen.d2.data.daos.ThingDao
@@ -13,8 +15,9 @@ class MainVM(
     private val thingDao: ThingDao
 ) : AndroidViewModel(context) {
 
-    fun fetch(): LiveData<List<Thing>> {
-        return thingDao.all()
+    fun fetch(): LiveData<PagedList<Thing>> {
+        val all = thingDao.all()
+        return all.toLiveData(pageSize = 50)
     }
 
     fun ins(thing: Thing) {
