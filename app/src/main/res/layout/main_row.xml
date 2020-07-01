@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="d"
+            type="me.samen.d2.data.entities.Thing" />
+
+        <variable
+            name="vm"
+            type="me.samen.d2.view.main.MainVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/ttype"
+            style="@style/ttype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:ttype = "@{d}"
+            bind:vm = "@{vm}"
+            />
+
+        <TextView
+            android:id="@+id/ttime"
+            style="@style/ttype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:ttime = "@{d}"
+            bind:vm = "@{vm}"
+            />
+
+        <TextView
+            android:id="@+id/tdesc"
+            style="@style/tdesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            bind:tdesc = "@{d}"
+            bind:vm = "@{vm}"
+            android:maxLines="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ttype" />
+
+        <TextView
+            android:id="@+id/ttags"
+            style="@style/ttags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            bind:ttags = "@{d}"
+            bind:vm = "@{vm}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tdesc" />
+
+        <TextView
+            android:id="@+id/tpeople"
+            style="@style/tpeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            bind:tpeople = "@{d}"
+            bind:vm = "@{vm}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tdesc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

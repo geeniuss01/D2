@@ -1,0 +1,36 @@
+package me.samen.d2.view.main
+
+import android.app.Application
+import android.view.View
+import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import me.samen.d2.data.daos.ThingDao
+import me.samen.d2.data.entities.Thing
+
+class MainVM(
+    context: Application,
+    private val thingDao: ThingDao
+) : AndroidViewModel(context) {
+
+    fun fetch(): LiveData<List<Thing>> {
+        return thingDao.all()
+    }
+
+    fun ins(thing: Thing) {
+        viewModelScope.launch(Dispatchers.IO) {
+            thingDao.ins(thing)
+        }
+    }
+
+    fun click(view: View, thing: Thing) {
+
+    }
+
+    class Factory(private val app: Application, private val dao: ThingDao) : ViewModelProvider
+    .AndroidViewModelFactory(app) {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return MainVM(app, dao) as T
+        }
+    }
+}
