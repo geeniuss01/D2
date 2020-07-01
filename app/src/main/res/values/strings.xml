@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">D2</string>
+    <string name="type">type</string>
+    <string name="desc">desc</string>
+    <string name="tags">tags</string>
+    <string name="name">Name</string>
+    <string name="people">people</string>
+    <string name="done">DONE</string>
+    <string name="date">date</string>
+    <string name="delete">DELETE</string>
 </resources>

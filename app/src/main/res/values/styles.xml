@@ -23,6 +23,10 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="delete_button">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
     <style name="tpeople">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">10sp</item>

@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 class ThingDaoTest {
     lateinit var db: AppDB
     lateinit var thingDao: ThingDao
-
+    val thing = Thing(0, "ty", "desc", "", "", "")
     @Before
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AppDB::class.java).allowMainThreadQueries().build()
@@ -24,11 +24,20 @@ class ThingDaoTest {
 
     @Test
     fun testIns_autogen_works() {
-        val thing = Thing(0, "ty", "desc", "", "","")
         runBlocking {
             val ids = thingDao.ins(thing, thing, thing)
             assertThat(ids).containsExactly(1L, 2L, 3L).inOrder()
             assertThat(thingDao._all().map { it.id }).containsExactly(1L, 2L, 3L)
+        }
+    }
+
+    @Test
+    fun testLookup() {
+        runBlocking {
+            val id = thingDao.ins1(thing)
+            val id1 = thingDao.ins1(thing)
+            assertThat(thingDao.lookup(id)).isEqualTo(thing.copy(id = id))
+            assertThat(thingDao.lookup(id1)).isEqualTo(thing.copy(id = id1))
         }
     }
 }

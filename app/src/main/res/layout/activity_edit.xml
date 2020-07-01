@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="th"
+            type="me.samen.d2.data.entities.Thing" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        tools:context=".view.edit.EditActivity">
+
+        <EditText
+            android:id="@+id/edit_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
+            android:ems="10"
+            android:hint="@string/type"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{th.type}" />
+
+        <EditText
+            android:id="@+id/edit_desc"
+            android:text="@{th.desc}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
+            android:ems="10"
+            android:hint="@string/desc"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_type"
+            tools:layout_editor_absoluteX="2dp" />
+
+        <EditText
+            android:id="@+id/edit_tags"
+            android:text="@{th.tags}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/tags"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_desc" />
+
+        <EditText
+            android:id="@+id/edit_people"
+            android:text="@{th.people}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/people"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_tags"
+            tools:layout_editor_absoluteX="2dp" />
+
+        <EditText
+            android:id="@+id/edit_date"
+            android:text="@{th.ts}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_people"
+            tools:layout_editor_absoluteX="2dp" />
+
+        <Button
+            android:id="@+id/edit_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
+            android:onClick="@{(view) -> listener.onClick(view)}"
+            android:text="@string/done"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_date" />
+
+        <Button
+            android:id="@+id/edit_delete"
+            style="@style/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/edit_widgets_verital_gap"
+            android:onClick="@{(view) -> listener.onClick(view)}"
+            android:text="@string/delete"
+            app:layout_constraintStart_toEndOf="@+id/edit_ok"
+            app:layout_constraintTop_toTopOf="@id/edit_ok"
+            tools:layout_editor_absoluteY="347dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

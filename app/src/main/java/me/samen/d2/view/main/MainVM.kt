@@ -7,13 +7,16 @@ import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.entities.Thing
+import me.samen.d2.util.LiveEvent
 
 class MainVM(
     context: Application,
     private val thingDao: ThingDao
 ) : AndroidViewModel(context) {
+    val clicks = MutableLiveData<LiveEvent<Thing>>()
 
     fun fetch(): LiveData<PagedList<Thing>> {
         val all = thingDao.all()
@@ -26,8 +29,36 @@ class MainVM(
         }
     }
 
-    fun click(view: View, thing: Thing) {
+    suspend fun insNewDefault(): Thing? {
+        return withContext(Dispatchers.IO) {
+            val t = Thing(0, "", "", "", "", "")
+            val id = kotlin.runCatching { thingDao.ins1(t) }.getOrNull()
+            id?.let {
+                thingDao.lookup(it)
+            }
+        }
+    }
 
+    fun click(view: View, thing: Thing) {
+        clicks.value = LiveEvent(thing)
+    }
+
+    suspend fun lookup(thingId: Long): Thing? {
+        return withContext(Dispatchers.IO) {
+            thingDao.lookup(thingId)
+        }
+    }
+
+    suspend fun update(updatedTh: Thing) {
+        return withContext(Dispatchers.IO) {
+            thingDao.upd(updatedTh)
+        }
+    }
+
+    suspend fun delete(theThing: Thing) {
+        return withContext(Dispatchers.IO) {
+            thingDao.del(theThing)
+        }
     }
 
     class Factory(private val app: Application, private val dao: ThingDao) : ViewModelProvider
