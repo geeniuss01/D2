@@ -7,9 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import me.samen.d2.daos.ThingDao
+import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.Thing
 
-@Database(entities = [Thing::class], version = 2)
+@Database(entities = [Thing::class, Bullet::class], version = 3)
 abstract class AppDB : RoomDatabase() {
     abstract fun thingDao(): ThingDao
 
@@ -20,16 +21,15 @@ abstract class AppDB : RoomDatabase() {
         fun instance(context: Context): AppDB {
             if (!::INSTANCE.isInitialized) {
                 INSTANCE = Room.databaseBuilder(context, AppDB::class.java, "appdb")
-                    .addMigrations(M_1_2)
+                    .addMigrations(M_2_3)
                     .build()
             }
             return INSTANCE
         }
 
-        // sample migration
-        private val M_1_2 = object : Migration(1, 2) {
+        private val M_2_3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                /*database.execSQL("ALTER TABLE u ADD COLUMN receivedTs INTEGER NOT NULL DEFAULT ${System.currentTimeMillis()}")*/
+                database.execSQL("CREATE TABLE IF NOT EXISTS `bullets` (`thought_id` INTEGER NOT NULL, `type` TEXT NOT NULL, `desc` TEXT NOT NULL, `status` TEXT NOT NULL, `id` INTEGER NOT NULL, `ts` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`thought_id`) REFERENCES `things`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
             }
         }
     }
