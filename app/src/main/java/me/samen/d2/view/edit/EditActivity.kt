@@ -1,6 +1,7 @@
 package me.samen.d2.view.edit
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,6 +35,8 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
             DataBindingUtil.setContentView<ActivityEditBinding>(this, R.layout.activity_edit)
         binding.listener = this
         lookup(thingId)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+
     }
 
     fun lookup(thingId: Long) {
@@ -45,19 +48,16 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            saveAndFinish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onClick(p0: View?) {
         if (p0?.id == R.id.edit_ok && theThing != null) {
-            val udpatedTh = with(binding) {
-                theThing?.copy(
-                    theThing?.id ?: 0,
-                    editType.text.toString(), editDesc.text.toString(), editTags.text.toString(),
-                    "", editPeople.text.toString(), editDate.text.toString()
-                )
-            } ?: return
-            lifecycleScope.launch {
-                vm.update(udpatedTh)
-                finish()
-            }
+            if (saveAndFinish()) return
         }
         if (p0?.id == R.id.edit_delete && theThing != null) {
             val th = theThing ?: return
@@ -66,5 +66,20 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
         }
+    }
+
+    private fun saveAndFinish(): Boolean {
+        val udpatedTh = with(binding) {
+            theThing?.copy(
+                theThing?.id ?: 0,
+                editType.text.toString(), editDesc.text.toString(), editTags.text.toString(),
+                "", editPeople.text.toString(), editDate.text.toString()
+            )
+        } ?: return true
+        lifecycleScope.launch {
+            vm.update(udpatedTh)
+            finish()
+        }
+        return false
     }
 }
