@@ -14,11 +14,11 @@ import me.samen.d2.data.AppDB
 import me.samen.d2.data.BUNDLE_THING_ID
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.ActivityEditBinding
-import me.samen.d2.view.main.MainVM
+import me.samen.d2.view.main.ThoughtsVM
 
 class EditActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var thingDao: ThingDao
-    private lateinit var vm: MainVM
+    private lateinit var vm: ThoughtsVM
     private lateinit var binding: ActivityEditBinding
     private var theThing: Thing? = null
 
@@ -29,8 +29,8 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
             finish()
         }
         thingDao = AppDB.instance(this).thingDao()
-        vm = ViewModelProviders.of(this, MainVM.Factory(application, thingDao))
-            .get(MainVM::class.java)
+        vm = ViewModelProviders.of(this, ThoughtsVM.Factory(application, thingDao))
+            .get(ThoughtsVM::class.java)
         binding =
             DataBindingUtil.setContentView<ActivityEditBinding>(this, R.layout.activity_edit)
         binding.listener = this

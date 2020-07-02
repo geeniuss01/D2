@@ -13,7 +13,7 @@ import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.AppDB
 import me.samen.d2.data.BUNDLE_THING_ID
 import me.samen.d2.data.entities.Thing
-import me.samen.d2.databinding.ActivityMainBinding
+import me.samen.d2.databinding.ActivityThoughtsBinding
 import me.samen.d2.view.edit.EditActivity
 
 /*
@@ -30,24 +30,27 @@ FOR THE APP
         // TODO(satosh.dhanyamraju): dagger
 
  */
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG: String = "MainActivity"
     private lateinit var thingDao: ThingDao
-    private lateinit var vm: MainVM
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var vm: ThoughtsVM
+    private lateinit var binding: ActivityThoughtsBinding
     private lateinit var mAdapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // TODO(satosh.dhanyamraju): move to fully data binding.
         thingDao = AppDB.instance(this).thingDao()
-        vm = ViewModelProviders.of(this, MainVM.Factory(application, thingDao))
-            .get(MainVM::class.java)
+        vm = ViewModelProviders.of(this, ThoughtsVM.Factory(application, thingDao))
+            .get(ThoughtsVM::class.java)
         mAdapter = MainAdapter(vm, this)
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView<ActivityThoughtsBinding>(
+            this,
+            R.layout.activity_thoughts
+        )
         binding.setListener(this)
         with(binding.rv) {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = LinearLayoutManager(this@ThoughtsActivity)
             adapter = mAdapter
         }
         vm.fetch().observe(this, Observer {
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun edit(thing: Thing) {
-        val intent = Intent(this@MainActivity, EditActivity::class.java)
+        val intent = Intent(this@ThoughtsActivity, EditActivity::class.java)
         intent.putExtra(BUNDLE_THING_ID, thing.id)
         startActivity(intent)
     }

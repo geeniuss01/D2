@@ -11,7 +11,7 @@
 
         <variable
             name="vm"
-            type="me.samen.d2.view.main.MainVM" />
+            type="me.samen.d2.view.main.ThoughtsVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

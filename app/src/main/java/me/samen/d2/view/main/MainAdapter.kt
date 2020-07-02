@@ -14,7 +14,7 @@ import me.samen.d2.databinding.MainRowBinding
 // TODO(satosh.dhanyamraju): use pagination; diffutils callbacks
 
 class MainAdapter(
-    private val vm: MainVM,
+    private val vm: ThoughtsVM,
     private val lifecycleOwner: LifecycleOwner
 ) : PagedListAdapter<Thing, MainVH>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainVH {
@@ -50,7 +50,7 @@ class MainAdapter(
 class MainVH(
     private val mainRowBinding: MainRowBinding
 ) : RecyclerView.ViewHolder(mainRowBinding.root) {
-    fun bind(thing: Thing?, vm: MainVM) {
+    fun bind(thing: Thing?, vm: ThoughtsVM) {
         thing?.run {
             mainRowBinding.d = thing
             mainRowBinding.vm = vm

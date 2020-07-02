@@ -12,7 +12,7 @@ import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.util.LiveEvent
 
-class MainVM(
+class ThoughtsVM(
     context: Application,
     private val thingDao: ThingDao
 ) : AndroidViewModel(context) {
@@ -67,7 +67,7 @@ class MainVM(
     class Factory(private val app: Application, private val dao: ThingDao) : ViewModelProvider
     .AndroidViewModelFactory(app) {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MainVM(app, dao) as T
+            return ThoughtsVM(app, dao) as T
         }
     }
 }
