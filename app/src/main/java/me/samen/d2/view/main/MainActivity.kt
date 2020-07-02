@@ -2,15 +2,12 @@ package me.samen.d2.view.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.launch
 import me.samen.d2.R
 import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.AppDB
@@ -21,7 +18,7 @@ import me.samen.d2.view.edit.EditActivity
 
 /*
 BACKUP commands
- adb shell dumpsys backup | grep "me.samen.d2"
+ adb shell bmgr backupnow me.samen.d2
  adb shell dumpsys backup | grep "me.samen.d2" -A 4 | grep Current
  adb shell bmgr restore 3b9f82a881618b53 me.samen.d2
 
@@ -31,7 +28,6 @@ BACKUP commands
 FOR THE APP
 
         // TODO(satosh.dhanyamraju): dagger
-// TODO(satosh.dhanyamraju): version control
 
  */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -57,7 +53,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         vm.fetch().observe(this, Observer {
             mAdapter.submitList(it)
         })
-        vm.clicks.observe(this, Observer { evt ->
+        vm.edits.observe(this, Observer { evt ->
             evt.getContentIfNotHandled()?.let {
                 edit(it)
             }
@@ -67,11 +63,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         if (p0?.id == R.id.main_new) {
-            lifecycleScope.launch {
-                val thing = vm.insNewDefault() ?: return@launch
-                Log.d(TAG, "onClick: $thing")
-                edit(thing)
-            }
+            vm.insNewDefault()
         }
     }
 

@@ -16,7 +16,7 @@ class MainVM(
     context: Application,
     private val thingDao: ThingDao
 ) : AndroidViewModel(context) {
-    val clicks = MutableLiveData<LiveEvent<Thing>>()
+    val edits = MutableLiveData<LiveEvent<Thing>>()
 
     fun fetch(): LiveData<PagedList<Thing>> {
         val all = thingDao.all()
@@ -29,18 +29,21 @@ class MainVM(
         }
     }
 
-    suspend fun insNewDefault(): Thing? {
-        return withContext(Dispatchers.IO) {
+    fun insNewDefault() {
+        viewModelScope.launch(Dispatchers.IO) {
             val t = Thing(0, "", "", "", "", "")
-            val id = kotlin.runCatching { thingDao.ins1(t) }.getOrNull()
-            id?.let {
-                thingDao.lookup(it)
+            val th = kotlin.runCatching {
+                val newid = thingDao.ins1(t)
+                thingDao.lookup(newid)
+            }.getOrNull()
+            if (th != null) {
+                edits.postValue(LiveEvent(th))
             }
         }
     }
 
     fun click(view: View, thing: Thing) {
-        clicks.value = LiveEvent(thing)
+        edits.value = LiveEvent(thing)
     }
 
     suspend fun lookup(thingId: Long): Thing? {
