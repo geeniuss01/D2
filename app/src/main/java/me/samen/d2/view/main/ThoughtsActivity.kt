@@ -16,6 +16,7 @@ import me.samen.d2.data.BUNDLE_THING_ID
 import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.ActivityThoughtsBinding
+import me.samen.d2.view.bullet.BulletsActivity
 import me.samen.d2.view.edit.EditActivity
 
 /*
@@ -63,6 +64,11 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
                 edit(it)
             }
         })
+        vm.opens.observe(this, Observer { evt ->
+            evt.getContentIfNotHandled()?.let {
+                open(it)
+            }
+        })
         binding.mainSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 vm.searchQuery.value = p0?.trim()?.toString()
@@ -83,6 +89,12 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun edit(thing: Thing) {
         val intent = Intent(this@ThoughtsActivity, EditActivity::class.java)
+        intent.putExtra(BUNDLE_THING_ID, thing.id)
+        startActivity(intent)
+    }
+
+    private fun open(thing: Thing) {
+        val intent = Intent(this@ThoughtsActivity, BulletsActivity::class.java)
         intent.putExtra(BUNDLE_THING_ID, thing.id)
         startActivity(intent)
     }

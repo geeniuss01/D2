@@ -11,8 +11,6 @@ import me.samen.d2.R
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.MainRowBinding
 
-// TODO(satosh.dhanyamraju): use pagination; diffutils callbacks
-
 class MainAdapter(
     private val vm: ThoughtsVM,
     private val lifecycleOwner: LifecycleOwner

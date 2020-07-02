@@ -1,5 +1,6 @@
 package me.samen.d2.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import me.samen.d2.data.entities.Thing
 
@@ -22,6 +23,9 @@ abstract class ThingDao {
 
     @Query("SELECT * FROM things WHERE id = :id")
     abstract suspend fun lookup(id: Long): Thing?
+
+    @Query("SELECT * FROM things WHERE id = :id")
+    abstract fun lookupLive(id: Long): LiveData<Thing?>
 
     @Update
     abstract suspend fun upd(thing: Thing)

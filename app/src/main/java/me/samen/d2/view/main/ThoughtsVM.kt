@@ -8,6 +8,7 @@ import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.samen.d2.R
 import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.util.LiveEvent
@@ -17,6 +18,7 @@ class ThoughtsVM(
     private val thingDao: ThingDao
 ) : AndroidViewModel(context) {
     val edits = MutableLiveData<LiveEvent<Thing>>()
+    val opens = MutableLiveData<LiveEvent<Thing>>()
     val searchQuery = MutableLiveData<String>()
 
     fun fetch(): LiveData<PagedList<Thing>> {
@@ -49,7 +51,11 @@ class ThoughtsVM(
     }
 
     fun click(view: View, thing: Thing) {
-        edits.value = LiveEvent(thing)
+        if (view.id == R.id.tdesc) {
+            opens.value = LiveEvent(thing)
+        } else {
+            edits.value = LiveEvent(thing)
+        }
     }
 
     suspend fun lookup(thingId: Long): Thing? {

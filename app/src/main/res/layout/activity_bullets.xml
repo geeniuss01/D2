@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="l"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.bullet.BulletsActivity">
+
+        <TextView
+            android:id="@+id/bu_th_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/bu_search"
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint=""
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bu_th_info" />
+
+        <Button
+            android:id="@+id/bu_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bu_th_info"
+            android:onClick="@{(v)-> l.onClick(v)}"
+            tools:layout_editor_absoluteY="19dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radioButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bu_search">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                android:text="todo" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="evt"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                tools:layout_editor_absoluteX="61dp"
+                tools:layout_editor_absoluteY="67dp" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:text="note"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                tools:layout_editor_absoluteX="135dp"
+                tools:layout_editor_absoluteY="67dp" />
+        </RadioGroup>
+
+        <Switch
+            android:id="@+id/bu_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pending:"
+            android:textOff="All"
+            android:textOn="Pending"
+            android:onClick="@{(v)-> l.onClick(v)}"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/bu_search" />
+
+        <EditText
+            android:id="@+id/bu_hpnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="hpnd"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/bu_status"
+            android:onClick="@{(v)-> l.onClick(v)}" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/bu_rv_barrier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="radioGroup,bu_hpnd" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bu_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/bu_rv_barrier"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

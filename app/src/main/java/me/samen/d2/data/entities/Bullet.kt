@@ -19,9 +19,15 @@ data class Bullet(
     val type: String, // BULLET_TYPE_*
     val desc: String,
     val status: String, // done or null
-    @PrimaryKey val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val ts: String = me.samen.d2.util.ts()
-)
+) {
+    val isTodoType: Boolean
+        get() = type == BULLET_TYPE_TODO
+    val isDone: Boolean
+        get() = status != "todo"
+
+}
 
 const val BULLET_TYPE_TODO = "todo"
 const val BULLET_TYPE_EVT = "evt"
