@@ -17,10 +17,16 @@ class ThoughtsVM(
     private val thingDao: ThingDao
 ) : AndroidViewModel(context) {
     val edits = MutableLiveData<LiveEvent<Thing>>()
+    val searchQuery = MutableLiveData<String>()
 
     fun fetch(): LiveData<PagedList<Thing>> {
-        val all = thingDao.all()
-        return all.toLiveData(pageSize = 50)
+        return Transformations.switchMap(searchQuery) {
+            if (it.isNullOrBlank()) {
+                thingDao.all().toLiveData(pageSize = 50)
+            } else {
+                thingDao.search("%$it%").toLiveData(pageSize = 50)
+            }
+        }
     }
 
     fun ins(thing: Thing) {

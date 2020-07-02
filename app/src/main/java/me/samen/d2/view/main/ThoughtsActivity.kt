@@ -2,6 +2,8 @@ package me.samen.d2.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -61,6 +63,15 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
                 edit(it)
             }
         })
+        binding.mainSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                vm.searchQuery.value = p0?.trim()?.toString()
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+        vm.searchQuery.value = null
     }
 
 

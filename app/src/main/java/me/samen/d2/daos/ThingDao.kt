@@ -8,6 +8,9 @@ abstract class ThingDao {
     @Query("SELECT * FROM things ORDER BY id DESC")
     abstract fun all(): androidx.paging.DataSource.Factory<Int, Thing>
 
+    @Query("SELECT * FROM things WHERE `desc` like :q OR tags like :q OR people like :q OR type like :q ORDER BY id DESC")
+    abstract fun search(q: String): androidx.paging.DataSource.Factory<Int, Thing>
+
     @Insert
     abstract suspend fun ins(vararg thing: Thing): List<Long>
 
