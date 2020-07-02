@@ -1,4 +1,4 @@
-package me.samen.d2.daos
+package me.samen.d2.data.daos
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider

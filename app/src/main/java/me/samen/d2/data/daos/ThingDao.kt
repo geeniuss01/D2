@@ -1,4 +1,4 @@
-package me.samen.d2.daos
+package me.samen.d2.data.daos
 
 import androidx.room.*
 import me.samen.d2.data.entities.Thing

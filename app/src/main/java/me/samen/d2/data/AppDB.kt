@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import me.samen.d2.daos.ThingDao
+import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.Thing
 

@@ -8,7 +8,7 @@ import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import me.samen.d2.daos.ThingDao
+import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.util.LiveEvent
 

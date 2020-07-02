@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.samen.d2.R
-import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.AppDB
 import me.samen.d2.data.BUNDLE_THING_ID
+import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.ActivityEditBinding
 import me.samen.d2.view.main.ThoughtsVM

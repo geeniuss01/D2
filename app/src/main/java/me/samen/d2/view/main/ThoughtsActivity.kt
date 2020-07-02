@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.samen.d2.R
-import me.samen.d2.daos.ThingDao
 import me.samen.d2.data.AppDB
 import me.samen.d2.data.BUNDLE_THING_ID
+import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.ActivityThoughtsBinding
 import me.samen.d2.view.edit.EditActivity
