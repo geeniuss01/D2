@@ -37,9 +37,9 @@ class ThoughtsVM(
         }
     }
 
-    fun insNewDefault() {
+    fun insNewDefault(text: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val t = Thing(0, "", "", "", "", "")
+            val t = Thing(0, "", text, "", "", "")
             val th = kotlin.runCatching {
                 val newid = thingDao.ins1(t)
                 thingDao.lookup(newid)

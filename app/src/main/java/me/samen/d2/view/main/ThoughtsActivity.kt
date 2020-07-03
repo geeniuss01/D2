@@ -83,7 +83,7 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         if (p0?.id == R.id.main_new) {
-            vm.insNewDefault()
+            vm.insNewDefault(binding.mainSearch.text?.toString() ?: "")
         }
     }
 
