@@ -75,6 +75,7 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
         if (p0?.id == R.id.bu_add) {
             sendLiveData()
             vm.ins()
+            binding.buSearch.selectAll()
         } else if (p0?.id == R.id.bu_hpnd) {
 
         } else {
@@ -84,12 +85,13 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
 
     fun sendLiveData() {
         vm.query.value = binding.buSearch.text.toString()
-        vm.status.value = if (binding.buStatus.isChecked) "todo" else ""
-        vm.type.value = when (binding.radioGroup.checkedRadioButtonId) {
+        val type = when (binding.radioGroup.checkedRadioButtonId) {
             R.id.radioButton -> BULLET_TYPE_TODO
             R.id.radioButton2 -> BULLET_TYPE_EVT
             R.id.radioButton3 -> BULLET_TYPE_NOTE
             else -> ""
         }
+        vm.type.value = type
+        vm.status.value = if (type == BULLET_TYPE_TODO && binding.buStatus.isChecked) "todo" else ""
     }
 }
