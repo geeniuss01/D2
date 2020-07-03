@@ -11,7 +11,7 @@ import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.Thing
 
-@Database(entities = [Thing::class, Bullet::class], version = 4)
+@Database(entities = [Thing::class, Bullet::class], version = 5)
 abstract class AppDB : RoomDatabase() {
     abstract fun thingDao(): ThingDao
     abstract fun bulletDao(): BulletDao
@@ -23,7 +23,7 @@ abstract class AppDB : RoomDatabase() {
         fun instance(context: Context): AppDB {
             if (!::INSTANCE.isInitialized) {
                 INSTANCE = Room.databaseBuilder(context, AppDB::class.java, "appdb")
-                    .addMigrations(M_2_3, M_3_4)
+                    .addMigrations(M_2_3, M_3_4, M_4_5)
                     .build()
             }
             return INSTANCE
@@ -37,6 +37,13 @@ abstract class AppDB : RoomDatabase() {
 
         private val M_3_4 = object : Migration(3, 4) {
             override fun migrate(database: SupportSQLiteDatabase) {
+            }
+        }
+
+        private val M_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE things ADD COLUMN lastOpened INTEGER NOT NULL DEFAULT 0")
+                database.execSQL("ALTER TABLE things ADD COLUMN lastTypeSetting TEXT NOT NULL DEFAULT 'todo'")
             }
         }
     }

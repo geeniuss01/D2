@@ -52,7 +52,10 @@ class ThoughtsVM(
 
     fun click(view: View, thing: Thing) {
         if (view.id == R.id.tdesc) {
-            opens.value = LiveEvent(thing)
+            viewModelScope.launch {
+                thingDao.upd(thing.copy(lastOpened = System.currentTimeMillis()))
+                opens.value = LiveEvent(thing)
+            }
         } else {
             edits.value = LiveEvent(thing)
         }

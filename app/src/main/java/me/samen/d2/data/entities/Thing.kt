@@ -11,5 +11,7 @@ data class Thing(
     val tags: String,
     val links: String,
     val people: String,
-    val ts: String = me.samen.d2.util.ts()
+    val ts: String = me.samen.d2.util.ts(),
+    val lastOpened: Long = 0,
+    val lastTypeSetting: String = BULLET_TYPE_TODO
 )

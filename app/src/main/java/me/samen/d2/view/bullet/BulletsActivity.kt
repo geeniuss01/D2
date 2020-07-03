@@ -72,14 +72,17 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        if (p0?.id == R.id.bu_add) {
-            sendLiveData()
-            vm.ins()
-            binding.buSearch.selectAll()
-        } else if (p0?.id == R.id.bu_hpnd) {
-
-        } else {
-            sendLiveData()
+        when (p0?.id) {
+            R.id.bu_add -> {
+                sendLiveData()
+                vm.ins()
+                binding.buSearch.selectAll()
+            }
+            R.id.bu_hpnd -> {
+            }
+            else -> {
+                sendLiveData()
+            }
         }
     }
 

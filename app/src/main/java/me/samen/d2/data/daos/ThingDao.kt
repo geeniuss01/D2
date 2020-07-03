@@ -6,10 +6,10 @@ import me.samen.d2.data.entities.Thing
 
 @Dao
 abstract class ThingDao {
-    @Query("SELECT * FROM things ORDER BY id DESC")
+    @Query("SELECT * FROM things ORDER BY lastOpened DESC")
     abstract fun all(): androidx.paging.DataSource.Factory<Int, Thing>
 
-    @Query("SELECT * FROM things WHERE `desc` like :q OR tags like :q OR people like :q OR type like :q ORDER BY id DESC")
+    @Query("SELECT * FROM things WHERE `desc` like :q OR tags like :q OR people like :q OR type like :q ORDER BY lastOpened DESC")
     abstract fun search(q: String): androidx.paging.DataSource.Factory<Int, Thing>
 
     @Insert
