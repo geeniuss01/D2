@@ -46,9 +46,16 @@
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/radioButton"
+            android:checkedButton="@+id/radioButton0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bu_search">
+
+            <RadioButton
+                android:id="@+id/radioButton0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                android:text="All" />
 
             <RadioButton
                 android:id="@+id/radioButton"

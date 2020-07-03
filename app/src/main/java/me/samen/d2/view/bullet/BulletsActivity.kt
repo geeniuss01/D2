@@ -89,6 +89,7 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
     fun sendLiveData() {
         vm.query.value = binding.buSearch.text.toString()
         val type = when (binding.radioGroup.checkedRadioButtonId) {
+            R.id.radioButton0 -> ""
             R.id.radioButton -> BULLET_TYPE_TODO
             R.id.radioButton2 -> BULLET_TYPE_EVT
             R.id.radioButton3 -> BULLET_TYPE_NOTE

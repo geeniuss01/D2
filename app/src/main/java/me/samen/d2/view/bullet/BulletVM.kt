@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.samen.d2.data.daos.BulletDao
 import me.samen.d2.data.daos.ThingDao
+import me.samen.d2.data.entities.BULLET_TYPE_TODO
 import me.samen.d2.data.entities.Bullet
 
 
@@ -48,7 +49,7 @@ class BulletVM(
         val q = query.value ?: return
         val ty = type.value ?: return
         val st = status.value ?: return
-        val bullet = Bullet(th, ty, q, st)
+        val bullet = Bullet(th, if (ty.isNotEmpty()) ty else BULLET_TYPE_TODO, q, st)
         viewModelScope.launch {
             bulletDao.ins(bullet)
         }
