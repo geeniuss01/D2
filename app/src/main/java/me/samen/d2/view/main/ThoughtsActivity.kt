@@ -87,6 +87,13 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        if (binding.mainSearch.text.toString().isNotEmpty()) {
+            binding.mainSearch.setText("")
+        } else
+            super.onBackPressed()
+    }
+
     private fun edit(thing: Thing) {
         val intent = Intent(this@ThoughtsActivity, EditActivity::class.java)
         intent.putExtra(BUNDLE_THING_ID, thing.id)
