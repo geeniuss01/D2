@@ -1,9 +1,9 @@
 package me.samen.d2.view.bindings
 
 import android.view.View
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.chip.Chip
 import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.view.bullet.BulletVM
@@ -39,7 +39,7 @@ fun bindPeople(textView: TextView, thing: Thing, thoughtsViewModel: ThoughtsVM) 
 }
 
 @BindingAdapter("bind:burowdone", "bind:vm", requireAll = true)
-fun bindburowDone(checkBox: CheckBox, b: Bullet, bulletVM: BulletVM) {
+fun bindburowDone(checkBox: Chip, b: Bullet, bulletVM: BulletVM) {
     if (!b.isTodoType) {
         checkBox.visibility = View.GONE
         return

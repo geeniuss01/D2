@@ -16,7 +16,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/ttype"
@@ -41,13 +43,15 @@
             />
 
         <TextView
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/tdesc"
             style="@style/tdesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            bind:tdesc = "@{d}"
-            bind:vm = "@{vm}"
+            bind:tdesc="@{d}"
+            bind:vm="@{vm}"
             android:maxLines="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

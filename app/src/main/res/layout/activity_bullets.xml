@@ -13,6 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         tools:context=".view.bullet.BulletsActivity">
 
         <TextView
@@ -24,100 +26,106 @@
 
         <EditText
             android:id="@+id/bu_search"
-            android:layout_width="321dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint=""
-            android:inputType="textPersonName"
+            android:maxLines="5"
+            android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bu_th_info" />
 
-        <Button
-            android:id="@+id/bu_add"
+        <com.google.android.material.chip.ChipGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bu_th_info"
-            android:onClick="@{(v)-> l.onClick(v)}"
-            tools:layout_editor_absoluteY="19dp" />
+            app:layout_constraintTop_toBottomOf="@+id/bu_th_info">
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkedButton="@+id/radioButton0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bu_search">
-
-            <RadioButton
-                android:id="@+id/radioButton0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{(v)-> l.onClick(v)}"
-                android:text="All" />
-
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{(v)-> l.onClick(v)}"
-                android:text="todo" />
-
-            <RadioButton
-                android:id="@+id/radioButton2"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bu_chip_happened"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="evt"
                 android:onClick="@{(v)-> l.onClick(v)}"
-                tools:layout_editor_absoluteX="61dp"
-                tools:layout_editor_absoluteY="67dp" />
+                android:text="Hpnd" />
 
-            <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_width="104dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bu_chip_add"
+                app:chipIcon="@android:drawable/ic_input_add"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="note"
                 android:onClick="@{(v)-> l.onClick(v)}"
-                tools:layout_editor_absoluteX="135dp"
-                tools:layout_editor_absoluteY="67dp" />
-        </RadioGroup>
+                android:text="Add" />
+        </com.google.android.material.chip.ChipGroup>
 
-        <Switch
-            android:id="@+id/bu_status"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/bu_chip_group"
+            app:singleSelection="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bu_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pending:"
-            android:textOff="All"
-            android:textOn="Pending"
+            android:layout_height="wrap_content">
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bu_chip_all"
+                android:checked="true"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="All" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bu_chip_todo"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="todo" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bu_chip_evt"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="evt" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bu_chip_note"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:onClick="@{(v)-> l.onClick(v)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="note" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/bu_chip_pending"
+            android:checkable="true"
+            android:text="Pending"
             android:onClick="@{(v)-> l.onClick(v)}"
-            app:layout_constraintStart_toEndOf="@+id/radioGroup"
-            app:layout_constraintTop_toBottomOf="@+id/bu_search" />
-
-        <EditText
-            android:id="@+id/bu_hpnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="hpnd"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/radioGroup"
-            app:layout_constraintTop_toBottomOf="@+id/bu_status"
-            android:onClick="@{(v)-> l.onClick(v)}" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bu_search" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/bu_rv_barrier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="radioGroup,bu_hpnd" />
+            app:constraint_referenced_ids="bu_chip_group" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bu_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/bu_rv_barrier"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bu_rv_barrier" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

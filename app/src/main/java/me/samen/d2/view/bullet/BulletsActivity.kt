@@ -51,11 +51,6 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
             .get(BulletVM::class.java)
         binding.l = this
         binding.buSearch.addTextChangedListener(tw)
-        binding.buHpnd.setOnEditorActionListener { textView, i, keyEvent ->
-            vm.hpnd(textView?.text?.toString())
-            textView.setText("")
-            true
-        }
         mAdapter = BulletAdapter(vm, this)
         with(binding.buRv) {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@BulletsActivity)
@@ -73,12 +68,14 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-            R.id.bu_add -> {
+            R.id.bu_chip_add -> {
                 sendLiveData()
                 vm.ins()
                 binding.buSearch.selectAll()
             }
-            R.id.bu_hpnd -> {
+            R.id.bu_chip_happened -> {
+                vm.hpnd(binding.buSearch.text?.toString())
+                binding.buSearch.selectAll()
             }
             else -> {
                 sendLiveData()
@@ -88,14 +85,15 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
 
     fun sendLiveData() {
         vm.query.value = binding.buSearch.text.toString()
-        val type = when (binding.radioGroup.checkedRadioButtonId) {
-            R.id.radioButton0 -> ""
-            R.id.radioButton -> BULLET_TYPE_TODO
-            R.id.radioButton2 -> BULLET_TYPE_EVT
-            R.id.radioButton3 -> BULLET_TYPE_NOTE
+        val type = when {
+            binding.buChipAll.isChecked -> ""
+            binding.buChipTodo.isChecked -> BULLET_TYPE_TODO
+            binding.buChipEvt.isChecked -> BULLET_TYPE_EVT
+            binding.buChipNote.isChecked -> BULLET_TYPE_NOTE
             else -> ""
         }
         vm.type.value = type
-        vm.status.value = if (type == BULLET_TYPE_TODO && binding.buStatus.isChecked) "todo" else ""
+        vm.status.value =
+            if (type == BULLET_TYPE_TODO && binding.buChipPending.isChecked) "todo" else ""
     }
 }
