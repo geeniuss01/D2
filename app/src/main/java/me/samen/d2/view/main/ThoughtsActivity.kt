@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.samen.d2.R
 import me.samen.d2.data.AppDB
@@ -18,6 +19,7 @@ import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.ActivityThoughtsBinding
 import me.samen.d2.view.bullet.BulletsActivity
 import me.samen.d2.view.edit.EditActivity
+
 
 /*
 BACKUP commands
@@ -55,6 +57,10 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
         with(binding.rv) {
             layoutManager = LinearLayoutManager(this@ThoughtsActivity)
             adapter = mAdapter
+            addItemDecoration(
+                DividerItemDecoration(this@ThoughtsActivity, DividerItemDecoration.VERTICAL)
+            )
+
         }
         vm.fetch().observe(this, Observer {
             mAdapter.submitList(it)

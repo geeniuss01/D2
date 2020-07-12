@@ -8,9 +8,9 @@ import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import me.samen.d2.R
 import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Thing
+import me.samen.d2.data.entities.ThingWithBullets
 import me.samen.d2.util.LiveEvent
 
 class ThoughtsVM(
@@ -21,7 +21,7 @@ class ThoughtsVM(
     val opens = MutableLiveData<LiveEvent<Thing>>()
     val searchQuery = MutableLiveData<String>()
 
-    fun fetch(): LiveData<PagedList<Thing>> {
+    fun fetch(): LiveData<PagedList<ThingWithBullets>> {
         return Transformations.switchMap(searchQuery) {
             if (it.isNullOrBlank()) {
                 thingDao.all().toLiveData(pageSize = 50)
@@ -50,15 +50,19 @@ class ThoughtsVM(
         }
     }
 
-    fun click(view: View, thing: Thing) {
-        if (view.id == R.id.tdesc) {
-            viewModelScope.launch {
-                thingDao.upd(thing.copy(lastOpened = System.currentTimeMillis()))
-                opens.value = LiveEvent(thing)
-            }
-        } else {
-            edits.value = LiveEvent(thing)
+    fun click(view: View, thing: ThingWithBullets) {
+        viewModelScope.launch {
+            val t = thing.thing ?: return@launch
+            thingDao.upd(t.copy(lastOpened = System.currentTimeMillis()))
+            opens.value = LiveEvent(t)
         }
+    }
+
+    fun onLongPress(view: View, thing: ThingWithBullets): Boolean {
+        thing.thing?.let { t ->
+            edits.value = LiveEvent(t)
+        }
+        return true
     }
 
     suspend fun lookup(thingId: Long): Thing? {

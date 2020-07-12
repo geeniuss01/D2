@@ -7,7 +7,7 @@
 
         <variable
             name="d"
-            type="me.samen.d2.data.entities.Thing" />
+            type="me.samen.d2.data.entities.ThingWithBullets" />
 
         <variable
             name="vm"
@@ -17,65 +17,77 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:clickable="true"
-        android:background="?android:attr/selectableItemBackground">
+        bind:tparent="@{d}"
+        bind:vm="@{vm}">
+
+
+        <TextView
+            android:id="@+id/tdesc"
+            style="@style/tdesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:tdesc="@{d}"
+            bind:vm="@{vm}" />
+
+        <TextView
+            android:id="@+id/ttime"
+            style="@style/ttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tdesc"
+            bind:ttime="@{d}"
+            bind:vm="@{vm}" />
 
         <TextView
             android:id="@+id/ttype"
             style="@style/ttype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ttime"
+            app:layout_constraintTop_toBottomOf="@id/tdesc"
             bind:ttype="@{d}"
-            bind:vm="@{vm}"
-            />
+            bind:vm="@{vm}" />
 
-        <TextView
-            android:id="@+id/ttime"
-            style="@style/ttype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            bind:ttime = "@{d}"
-            bind:vm = "@{vm}"
-            />
-
-        <TextView
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:id="@+id/tdesc"
-            style="@style/tdesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            bind:tdesc="@{d}"
-            bind:vm="@{vm}"
-            android:maxLines="3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ttype" />
 
         <TextView
             android:id="@+id/ttags"
             style="@style/ttags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            bind:ttags = "@{d}"
-            bind:vm = "@{vm}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tdesc" />
+            app:layout_constraintStart_toEndOf="@id/ttype"
+            app:layout_constraintTop_toBottomOf="@+id/tdesc"
+            bind:ttags="@{d}"
+            bind:vm="@{vm}" />
 
         <TextView
             android:id="@+id/tpeople"
             style="@style/tpeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            bind:tpeople = "@{d}"
-            bind:vm = "@{vm}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tdesc" />
+            app:layout_constraintStart_toEndOf="@id/ttags"
+            app:layout_constraintTop_toBottomOf="@+id/tdesc"
+            bind:tpeople="@{d}"
+            bind:vm="@{vm}" />
+
+        <TextView
+            android:id="@+id/tbullets"
+            style="@style/tbullets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ttime"
+            bind:tbullets="@{d}"
+            bind:vm="@{vm}" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

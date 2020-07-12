@@ -3,14 +3,15 @@ package me.samen.d2.data.daos
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import me.samen.d2.data.entities.Thing
+import me.samen.d2.data.entities.ThingWithBullets
 
 @Dao
 abstract class ThingDao {
     @Query("SELECT * FROM things ORDER BY lastOpened DESC")
-    abstract fun all(): androidx.paging.DataSource.Factory<Int, Thing>
+    abstract fun all(): androidx.paging.DataSource.Factory<Int, ThingWithBullets>
 
     @Query("SELECT * FROM things WHERE `desc` like :q OR tags like :q OR people like :q OR type like :q ORDER BY lastOpened DESC")
-    abstract fun search(q: String): androidx.paging.DataSource.Factory<Int, Thing>
+    abstract fun search(q: String): androidx.paging.DataSource.Factory<Int, ThingWithBullets>
 
     @Insert
     abstract suspend fun ins(vararg thing: Thing): List<Long>
@@ -19,7 +20,7 @@ abstract class ThingDao {
     abstract suspend fun ins1(thing: Thing): Long
 
     @Query("SELECT * FROM things")
-    abstract fun _all(): List<Thing>
+    abstract fun _all(): List<ThingWithBullets>
 
     @Query("SELECT * FROM things WHERE id = :id")
     abstract suspend fun lookup(id: Long): Thing?

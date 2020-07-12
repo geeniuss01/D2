@@ -10,16 +10,23 @@
     <style name="ttype" parent="AppTheme">
         <item name="android:textColor">@color/red</item>
         <item name="android:textSize">10sp</item>
+        <item name="android:layout_marginLeft">@dimen/main_row_tag_spacing</item>
+    </style>
+
+    <style name="ttime" parent="AppTheme">
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="tdesc">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">start</item>
         <item name="android:textAlignment">textStart</item>
+
     </style>
 
     <style name="ttags">
         <item name="android:textColor">@color/green</item>
+        <item name="android:layout_marginLeft">@dimen/main_row_tag_spacing</item>
         <item name="android:textSize">10sp</item>
     </style>
 
@@ -29,6 +36,12 @@
 
     <style name="tpeople">
         <item name="android:textColor">@color/blue</item>
+        <item name="android:layout_marginLeft">@dimen/main_row_tag_spacing</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="tbullets">
+        <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">10sp</item>
     </style>
 

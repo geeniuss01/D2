@@ -8,13 +8,13 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import me.samen.d2.R
-import me.samen.d2.data.entities.Thing
+import me.samen.d2.data.entities.ThingWithBullets
 import me.samen.d2.databinding.MainRowBinding
 
 class MainAdapter(
     private val vm: ThoughtsVM,
     private val lifecycleOwner: LifecycleOwner
-) : PagedListAdapter<Thing, MainVH>(DIFF_CALLBACK) {
+) : PagedListAdapter<ThingWithBullets, MainVH>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainVH {
         val binding = DataBindingUtil.inflate<MainRowBinding>(
             LayoutInflater.from(parent.context),
@@ -30,12 +30,18 @@ class MainAdapter(
 
     companion object {
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<Thing>() {
-            override fun areItemsTheSame(oldItem: Thing, newItem: Thing): Boolean {
-                return oldItem.id == newItem.id
+            DiffUtil.ItemCallback<ThingWithBullets>() {
+            override fun areItemsTheSame(
+                oldItem: ThingWithBullets,
+                newItem: ThingWithBullets
+            ): Boolean {
+                return oldItem.thing?.id == newItem.thing?.id
             }
 
-            override fun areContentsTheSame(oldItem: Thing, newItem: Thing): Boolean {
+            override fun areContentsTheSame(
+                oldItem: ThingWithBullets,
+                newItem: ThingWithBullets
+            ): Boolean {
                 return oldItem == newItem
             }
 
@@ -48,7 +54,7 @@ class MainAdapter(
 class MainVH(
     private val mainRowBinding: MainRowBinding
 ) : RecyclerView.ViewHolder(mainRowBinding.root) {
-    fun bind(thing: Thing?, vm: ThoughtsVM) {
+    fun bind(thing: ThingWithBullets?, vm: ThoughtsVM) {
         thing?.run {
             mainRowBinding.d = thing
             mainRowBinding.vm = vm

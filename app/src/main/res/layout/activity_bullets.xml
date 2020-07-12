@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="textPersonName"
             android:maxLines="5"
-            android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bu_th_info" />
 
@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{(v)-> l.onClick(v)}"
+                android:visibility="gone"
                 android:text="Hpnd" />
 
             <com.google.android.material.chip.Chip
@@ -67,7 +68,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/bu_chip_all"
-                android:checked="true"
+
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:onClick="@{(v)-> l.onClick(v)}"
                 android:layout_width="wrap_content"
@@ -95,6 +96,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/bu_chip_note"
+                android:checked="true"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:onClick="@{(v)-> l.onClick(v)}"
                 android:layout_width="wrap_content"
