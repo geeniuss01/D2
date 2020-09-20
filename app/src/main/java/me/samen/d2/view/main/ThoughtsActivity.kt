@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import me.samen.d2.R
 import me.samen.d2.data.AppDB
 import me.samen.d2.data.BUNDLE_THING_ID
@@ -29,12 +28,6 @@ BACKUP commands
 
  */
 
-/*
-FOR THE APP
-
-        // TODO(satosh.dhanyamraju): dagger
-
- */
 class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG: String = "MainActivity"
     private lateinit var thingDao: ThingDao
@@ -55,7 +48,7 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
         )
         binding.setListener(this)
         with(binding.rv) {
-            layoutManager = LinearLayoutManager(this@ThoughtsActivity)
+            layoutManager = HPLinearLayoutManager(this@ThoughtsActivity)
             adapter = mAdapter
             addItemDecoration(
                 DividerItemDecoration(this@ThoughtsActivity, DividerItemDecoration.VERTICAL)
