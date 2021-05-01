@@ -8,14 +8,17 @@ import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.samen.d2.data.daos.BulletDao
 import me.samen.d2.data.daos.ThingDao
+import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.data.entities.ThingWithBullets
 import me.samen.d2.util.LiveEvent
 
 class ThoughtsVM(
     context: Application,
-    private val thingDao: ThingDao
+    private val thingDao: ThingDao,
+    private val bulletDao: BulletDao
 ) : AndroidViewModel(context) {
     val edits = MutableLiveData<LiveEvent<Thing>>()
     val opens = MutableLiveData<LiveEvent<Thing>>()
@@ -71,9 +74,10 @@ class ThoughtsVM(
         }
     }
 
-    suspend fun update(updatedTh: Thing) {
+    suspend fun update(updatedTh: Thing, pageNum: String?) {
         return withContext(Dispatchers.IO) {
-            thingDao.upd(updatedTh)
+            bulletDao.ins(Bullet(updatedTh.id, "note", "page $pageNum", ""))
+            thingDao.upd(updatedTh.copy(lastOpened = System.currentTimeMillis()))
         }
     }
 
@@ -83,10 +87,14 @@ class ThoughtsVM(
         }
     }
 
-    class Factory(private val app: Application, private val dao: ThingDao) : ViewModelProvider
+    class Factory(
+        private val app: Application,
+        private val dao: ThingDao,
+        val bulletDao: BulletDao
+    ) : ViewModelProvider
     .AndroidViewModelFactory(app) {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ThoughtsVM(app, dao) as T
+            return ThoughtsVM(app, dao, bulletDao) as T
         }
     }
 }

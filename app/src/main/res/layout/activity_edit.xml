@@ -18,77 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="12dp"
-        tools:context=".view.edit.EditActivity">
-
-        <EditText
-            android:id="@+id/edit_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
-            android:ems="10"
-            android:hint="@string/type"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{th.type}" />
-
-        <EditText
-            android:id="@+id/edit_desc"
-            android:text="@{th.desc}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
-            android:ems="10"
-            android:hint="@string/desc"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_type"
-            tools:layout_editor_absoluteX="2dp" />
-
-        <EditText
-            android:id="@+id/edit_tags"
-            android:text="@{th.tags}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/tags"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_desc" />
-
-        <EditText
-            android:id="@+id/edit_people"
-            android:text="@{th.people}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/people"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_tags"
-            tools:layout_editor_absoluteX="2dp" />
-
-        <EditText
-            android:id="@+id/edit_date"
-            android:text="@{th.ts}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_people"
-            tools:layout_editor_absoluteX="2dp" />
+        tools:context=".view.edit.EditActivity"
+        android:foregroundGravity="center">
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/actionChips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_date">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/edit_ok"
@@ -116,6 +54,83 @@
                 style="@style/Widget.MaterialComponents.Chip.Entry" />
 
         </com.google.android.material.chip.ChipGroup>
+
+        <EditText
+            android:id="@+id/edit_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
+            android:ems="10"
+            android:hint="@string/type"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionChips"
+            android:text="@{th.type}" />
+
+        <EditText
+            android:id="@+id/edit_desc"
+            android:text="@{th.desc}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_widgets_verital_gap"
+            android:ems="10"
+            android:hint="@string/desc"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_type"
+            tools:layout_editor_absoluteX="2dp" />
+
+        <EditText
+            android:id="@+id/ins_pg_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/insPageNum"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_desc"
+            tools:layout_editor_absoluteX="2dp" />
+
+
+        <EditText
+            android:id="@+id/edit_tags"
+            android:text="@{th.tags}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/tags"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ins_pg_num" />
+
+        <EditText
+            android:id="@+id/edit_people"
+            android:text="@{th.people}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/people"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_tags"
+            tools:layout_editor_absoluteX="2dp" />
+
+        <EditText
+            android:id="@+id/edit_date"
+            android:text="@{th.ts}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_people"
+            tools:layout_editor_absoluteX="2dp" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

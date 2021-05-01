@@ -8,4 +8,5 @@
     <string name="done">DONE</string>
     <string name="date">date</string>
     <string name="delete">DELETE</string>
+    <string name="insPageNum">Insert page number</string>
 </resources>

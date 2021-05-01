@@ -29,7 +29,10 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
             finish()
         }
         thingDao = AppDB.instance(this).thingDao()
-        vm = ViewModelProviders.of(this, ThoughtsVM.Factory(application, thingDao))
+        vm = ViewModelProviders.of(
+            this,
+            ThoughtsVM.Factory(application, thingDao, AppDB.instance(this).bulletDao())
+        )
             .get(ThoughtsVM::class.java)
         binding =
             DataBindingUtil.setContentView<ActivityEditBinding>(this, R.layout.activity_edit)
@@ -75,9 +78,11 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
                 editType.text.toString(), editDesc.text.toString(), editTags.text.toString(),
                 "", editPeople.text.toString(), editDate.text.toString()
             )
+
         } ?: return true
         lifecycleScope.launch {
-            vm.update(udpatedTh)
+            val pageNum = binding.insPgNum.text.toString()
+            vm.update(udpatedTh, pageNum)
             finish()
         }
         return false

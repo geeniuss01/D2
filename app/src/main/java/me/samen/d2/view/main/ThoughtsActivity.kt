@@ -39,7 +39,10 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         // TODO(satosh.dhanyamraju): move to fully data binding.
         thingDao = AppDB.instance(this).thingDao()
-        vm = ViewModelProviders.of(this, ThoughtsVM.Factory(application, thingDao))
+        vm = ViewModelProviders.of(
+            this,
+            ThoughtsVM.Factory(application, thingDao, AppDB.instance(this).bulletDao())
+        )
             .get(ThoughtsVM::class.java)
         mAdapter = MainAdapter(vm, this)
         binding = DataBindingUtil.setContentView<ActivityThoughtsBinding>(
