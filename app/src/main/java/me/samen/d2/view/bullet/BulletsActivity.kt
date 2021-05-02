@@ -1,9 +1,10 @@
 package me.samen.d2.view.bullet
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -18,24 +19,12 @@ import me.samen.d2.data.entities.BULLET_TYPE_NOTE
 import me.samen.d2.data.entities.BULLET_TYPE_TODO
 import me.samen.d2.databinding.ActivityBulletsBinding
 
-class BulletsActivity : AppCompatActivity(), View.OnClickListener {
+class BulletsActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
     private lateinit var thingDao: ThingDao
     private lateinit var bulletsDao: BulletDao
     private lateinit var vm: BulletVM
     private lateinit var binding: ActivityBulletsBinding
     private lateinit var mAdapter: BulletAdapter
-    private val tw = object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-            sendLiveData()
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +39,6 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
         vm = ViewModelProviders.of(this, BulletVM.Factory(application, bulletsDao, thingDao))
             .get(BulletVM::class.java)
         binding.l = this
-        binding.buSearch.addTextChangedListener(tw)
         mAdapter = BulletAdapter(vm, this)
         with(binding.buRv) {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@BulletsActivity)
@@ -63,11 +51,14 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
         vm.storedThought.observe(this, Observer {
             binding.buThInfo.text = it?.desc ?: ""
         })
-        sendLiveData()
+        runOnUiThread(Runnable {
+            query = ""
+            sendLiveData()
+        })
     }
 
     override fun onClick(p0: View?) {
-        when (p0?.id) {
+        /*when (p0?.id) {
             R.id.bu_chip_add -> {
                 sendLiveData()
                 vm.ins()
@@ -80,11 +71,44 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
             else -> {
                 sendLiveData()
             }
+        }*/
+        sendLiveData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.thought_options, menu)
+        val searchView =
+            menu?.getItem(0)?.actionView as? SearchView // TODO: 02/05/21 change to find
+        searchView?.setOnQueryTextListener(this)
+        return true
+    }
+
+    private var query: String? = ""
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        query = p0?.trim()?.toString()
+        sendLiveData()
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        query = p0?.trim()?.toString()
+        sendLiveData()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.newitem -> {
+                sendLiveData()
+                vm.ins()
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     fun sendLiveData() {
-        vm.query.value = binding.buSearch.text.toString()
+        vm.query.value = query
         val type = when {
             binding.buChipAll.isChecked -> ""
             binding.buChipTodo.isChecked -> BULLET_TYPE_TODO
@@ -93,7 +117,6 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener {
             else -> ""
         }
         vm.type.value = type
-        vm.status.value =
-            if (type == BULLET_TYPE_TODO && binding.buChipPending.isChecked) "todo" else ""
+        vm.status.value = ""
     }
 }

@@ -2,9 +2,10 @@ package me.samen.d2.view.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -28,7 +29,7 @@ BACKUP commands
 
  */
 
-class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
+class ThoughtsActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
     private val TAG: String = "MainActivity"
     private lateinit var thingDao: ThingDao
     private lateinit var vm: ThoughtsVM
@@ -71,29 +72,42 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener {
                 open(it)
             }
         })
-        binding.mainSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                vm.searchQuery.value = p0?.trim()?.toString()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
         vm.searchQuery.value = null
     }
 
 
     override fun onClick(p0: View?) {
-        if (p0?.id == R.id.main_new) {
-            vm.insNewDefault(binding.mainSearch.text?.toString() ?: "")
-        }
     }
 
     override fun onBackPressed() {
-        if (binding.mainSearch.text.toString().isNotEmpty()) {
-            binding.mainSearch.setText("")
-        } else
-            super.onBackPressed()
+        super.onBackPressed()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.thought_options, menu)
+        val searchView =
+            menu?.getItem(0)?.actionView as? SearchView // TODO: 02/05/21 change to find
+        searchView?.setOnQueryTextListener(this)
+        return true
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        vm.searchQuery.value = p0?.trim()?.toString()
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        vm.searchQuery.value = p0?.trim()?.toString()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.newitem -> {
+                vm.insNewDefault(vm.searchQuery.value ?: "")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun edit(thing: Thing) {

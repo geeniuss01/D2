@@ -9,4 +9,6 @@
     <string name="date">date</string>
     <string name="delete">DELETE</string>
     <string name="insPageNum">Insert page number</string>
+    <string name="search_title">Search</string>
+    <string name="addItem">New</string>
 </resources>

@@ -24,51 +24,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/bu_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLines="5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bu_th_info" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bu_th_info">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/bu_chip_happened"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{(v)-> l.onClick(v)}"
-                android:visibility="gone"
-                android:text="Hpnd" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/bu_chip_add"
-                app:chipIcon="@android:drawable/ic_input_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{(v)-> l.onClick(v)}"
-                android:text="Add" />
-        </com.google.android.material.chip.ChipGroup>
-
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/bu_chip_group"
             app:singleSelection="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bu_search"
+            app:layout_constraintTop_toBottomOf="@id/bu_th_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/bu_chip_all"
-
+                android:checked="true"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:onClick="@{(v)-> l.onClick(v)}"
                 android:layout_width="wrap_content"
@@ -96,7 +63,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/bu_chip_note"
-                android:checked="true"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:onClick="@{(v)-> l.onClick(v)}"
                 android:layout_width="wrap_content"
@@ -104,16 +70,6 @@
                 android:checkable="true"
                 android:text="note" />
         </com.google.android.material.chip.ChipGroup>
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/bu_chip_pending"
-            android:checkable="true"
-            android:text="Pending"
-            android:onClick="@{(v)-> l.onClick(v)}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bu_search" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/bu_rv_barrier"

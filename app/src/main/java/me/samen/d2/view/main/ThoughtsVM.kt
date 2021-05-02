@@ -76,7 +76,9 @@ class ThoughtsVM(
 
     suspend fun update(updatedTh: Thing, pageNum: String?) {
         return withContext(Dispatchers.IO) {
-            bulletDao.ins(Bullet(updatedTh.id, "note", "page $pageNum", ""))
+            if (pageNum?.isNotEmpty() == true) {
+                bulletDao.ins(Bullet(updatedTh.id, "note", "page $pageNum", ""))
+            }
             thingDao.upd(updatedTh.copy(lastOpened = System.currentTimeMillis()))
         }
     }

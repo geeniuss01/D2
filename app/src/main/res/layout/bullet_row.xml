@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <data>
@@ -40,31 +39,7 @@
             android:text="@{d.desc}"
             app:layout_constraintStart_toEndOf="@+id/bu_row_type"
             app:layout_constraintTop_toTopOf="parent" />
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/bu_row_desc"
-            app:layout_constraintTop_toBottomOf="@id/bu_row_desc">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/bu_row_del"
-                app:chipIcon="@android:drawable/ic_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="Delete"
-                android:onClick="@{(v) -> vm.delete(v, d)}" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:checkable="true"
-                android:id="@+id/bu_row_done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Done"
-                bind:burowdone="@{d}"
-                bind:vm="@{vm}" />
-        </com.google.android.material.chip.ChipGroup>
         <TextView
             android:id="@+id/bu_row_ts"
             style="@style/tpeople"
@@ -72,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="@{d.ts}"
             app:layout_constraintTop_toBottomOf="@id/bu_row_desc"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/bu_row_desc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

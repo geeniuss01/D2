@@ -1,6 +1,7 @@
 package me.samen.d2.view.edit
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -51,24 +52,31 @@ class EditActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.bullet_options, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            saveAndFinish()
+        when (item.itemId) {
+            android.R.id.home -> {
+                saveAndFinish()
+            }
+            R.id.ok -> {
+                if (theThing != null) (saveAndFinish())
+            }
+            R.id.delitem -> {
+                val th = theThing ?: return false
+                lifecycleScope.launch {
+                    vm.delete(th)
+                    finish()
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onClick(p0: View?) {
-        if (p0?.id == R.id.edit_ok && theThing != null) {
-            if (saveAndFinish()) return
-        }
-        if (p0?.id == R.id.edit_delete && theThing != null) {
-            val th = theThing ?: return
-            lifecycleScope.launch {
-                vm.delete(th)
-                finish()
-            }
-        }
     }
 
     private fun saveAndFinish(): Boolean {
