@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
 
     <data>
@@ -12,6 +13,10 @@
         <variable
             name="vm"
             type="me.samen.d2.view.bullet.BulletVM" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
 
     </data>
 
@@ -37,6 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{d.desc}"
+            bind:tdesc="@{d}"
+            bind:clk="@{click}"
             app:layout_constraintStart_toEndOf="@+id/bu_row_type"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,6 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{d.ts}"
+            android:onClick="onClick"
+            android:tag="@{d.id}"
             app:layout_constraintTop_toBottomOf="@id/bu_row_desc"
             app:layout_constraintStart_toStartOf="@id/bu_row_desc" />
 

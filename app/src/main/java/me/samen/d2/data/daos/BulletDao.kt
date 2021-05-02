@@ -1,10 +1,8 @@
 package me.samen.d2.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import me.samen.d2.data.entities.BULLET_TYPE_EVT
 import me.samen.d2.data.entities.Bullet
 
@@ -33,4 +31,10 @@ abstract class BulletDao {
     suspend fun insHpnd(thoughtId: Long, desc: String): Long {
         return ins(Bullet(thoughtId, BULLET_TYPE_EVT, "Hpnd: $desc", ""))
     }
+
+    @Query("select * from bullets where id = :bulletId")
+    abstract fun lookup(bulletId: Long): LiveData<Bullet?>
+
+    @Update
+    abstract fun update(bullet: Bullet)
 }

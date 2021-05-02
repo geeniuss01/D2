@@ -1,12 +1,13 @@
 package me.samen.d2.view.bullet
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import me.samen.d2.data.AppDB
 import me.samen.d2.data.daos.BulletDao
 import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.BULLET_TYPE_TODO
@@ -44,6 +45,10 @@ class BulletVM(
         }
     }
 
+    fun lookup(bulletId: Long): LiveData<Bullet?> {
+        return bulletDao.lookup(bulletId)
+    }
+
     fun ins() {
         val th = thought.value ?: return
         val q = query.value ?: return
@@ -55,9 +60,14 @@ class BulletVM(
         }
     }
 
-    fun delete(view: View, bullet: Bullet) {
-        viewModelScope.launch { bulletDao.del(bullet) }
+    fun delete(bullet: Bullet) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                bulletDao.del(bullet)
+            }
+        }
     }
+
 
     private fun sendMediatorEvent() {
         fun String.like() = "%$this%"
@@ -74,11 +84,11 @@ class BulletVM(
         }
     }
 
-    fun hpnd(hap: String?) {
-        hap ?: return
-        val t = thought?.value ?: return
+    fun update(bullet: Bullet) {
         viewModelScope.launch {
-            bulletDao.insHpnd(t, hap)
+            withContext(Dispatchers.IO) {
+                bulletDao.update(bullet)
+            }
         }
     }
 
@@ -88,6 +98,11 @@ class BulletVM(
         private val thoughtDao: ThingDao
     ) : ViewModelProvider
     .AndroidViewModelFactory(app) {
+        constructor(app: Application) : this(
+            app,
+            AppDB.instance(app).bulletDao(),
+            AppDB.instance(app).thingDao()
+        )
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return BulletVM(app, dao, thoughtDao) as T
         }

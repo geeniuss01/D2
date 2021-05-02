@@ -1,5 +1,6 @@
 package me.samen.d2.view.bullet
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -39,7 +40,7 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener, SearchView.On
         vm = ViewModelProviders.of(this, BulletVM.Factory(application, bulletsDao, thingDao))
             .get(BulletVM::class.java)
         binding.l = this
-        mAdapter = BulletAdapter(vm, this)
+        mAdapter = BulletAdapter(vm, this, this)
         with(binding.buRv) {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@BulletsActivity)
             adapter = mAdapter
@@ -58,20 +59,15 @@ class BulletsActivity : AppCompatActivity(), View.OnClickListener, SearchView.On
     }
 
     override fun onClick(p0: View?) {
-        /*when (p0?.id) {
-            R.id.bu_chip_add -> {
-                sendLiveData()
-                vm.ins()
-                binding.buSearch.selectAll()
+        when (p0?.id) {
+            R.id.bu_row_desc, R.id.bu_row_ts -> {
+                val bulletId = p0?.tag as? Long
+                startActivity(Intent(this, EditBulletActivity::class.java).apply {
+                    putExtra("bullet_id", bulletId)
+                })
             }
-            R.id.bu_chip_happened -> {
-                vm.hpnd(binding.buSearch.text?.toString())
-                binding.buSearch.selectAll()
-            }
-            else -> {
-                sendLiveData()
-            }
-        }*/
+
+        }
         sendLiveData()
     }
 

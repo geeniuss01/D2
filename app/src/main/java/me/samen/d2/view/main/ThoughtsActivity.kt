@@ -36,6 +36,7 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener, SearchView.O
     private lateinit var binding: ActivityThoughtsBinding
     private lateinit var mAdapter: MainAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // TODO(satosh.dhanyamraju): move to fully data binding.

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.bullet.BulletsActivity"></activity>
+        <activity android:name=".view.bullet.EditBulletActivity"></activity>
+        <activity android:name=".view.bullet.BulletsActivity" />
         <activity android:name=".view.edit.EditActivity" />
         <activity android:name=".view.main.ThoughtsActivity">
             <intent-filter>
