@@ -6,7 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +22,7 @@ import me.samen.d2.data.entities.Thing
 import me.samen.d2.databinding.ActivityThoughtsBinding
 import me.samen.d2.view.bullet.BulletsActivity
 import me.samen.d2.view.edit.EditActivity
+import java.util.concurrent.Executor
 
 
 /*
@@ -26,6 +30,12 @@ BACKUP commands
  adb shell bmgr backupnow me.samen.d2
  adb shell dumpsys backup | grep "me.samen.d2" -A 4 | grep Current
  adb shell bmgr restore 3b9f82a881618b53 me.samen.d2
+
+todos
+1. title per screen (not d2 everywhere)
+2. appname and icon
+3. deletion need confirmation
+
 
  */
 
@@ -36,6 +46,9 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener, SearchView.O
     private lateinit var binding: ActivityThoughtsBinding
     private lateinit var mAdapter: MainAdapter
 
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +64,7 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener, SearchView.O
             this,
             R.layout.activity_thoughts
         )
+        showBiometric()
         binding.setListener(this)
         with(binding.rv) {
             layoutManager = HPLinearLayoutManager(this@ThoughtsActivity)
@@ -74,6 +88,50 @@ class ThoughtsActivity : AppCompatActivity(), View.OnClickListener, SearchView.O
             }
         })
         vm.searchQuery.value = null
+    }
+
+    private fun showBiometric() {
+        executor = ContextCompat.getMainExecutor(this)
+        biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toast.makeText(
+                        applicationContext,
+                        "Who are you?", Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    finish()
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+//                    Toast.makeText(applicationContext,
+//                        "Authentication succeeded!", Toast.LENGTH_SHORT)
+//                        .show()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+//                    Toast.makeText(applicationContext, "No match",
+//                        Toast.LENGTH_SHORT)
+//                        .show()
+                    finish()
+                }
+            })
+
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Need Biometric login")
+            .setSubtitle("Log in using your biometric credential")
+            .setNegativeButtonText("Use account password")
+            .build()
+        biometricPrompt.authenticate(promptInfo)
+        // TODO(satosh.dhanyamraju): auth every 5m onResume
     }
 
 

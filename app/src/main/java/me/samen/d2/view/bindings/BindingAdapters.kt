@@ -64,6 +64,7 @@ fun bindburowDone(checkBox: Chip, b: Bullet, bulletVM: BulletVM) {
 
 @BindingAdapter("bind:bullet_type", requireAll = true)
 fun bindBulletType(atv: AutoCompleteTextView, bullet: Bullet?) {
+    // TODO(satosh.dhanyamraju): read from DB
     val items = (setOf("note", "todo", "evt") + (bullet?.type ?: "evt")).toList()
     val adapter = ArrayAdapter(atv.context, R.layout.list_item, items)
     atv.setAdapter(adapter)
@@ -72,35 +73,13 @@ fun bindBulletType(atv: AutoCompleteTextView, bullet: Bullet?) {
 
 @BindingAdapter("bind:thought_type", requireAll = true)
 fun bindBulletType(atv: AutoCompleteTextView, thought: Thing?) {
+    // TODO(satosh.dhanyamraju): read from DB
+
     val items = (setOf(
-        "evt",
-        "event",
-        "app",
-        "feeling",
-        "tracker",
-        "list",
-        "phone",
-        "sw",
-        "company",
-        "person",
-        "Book",
-        "notes",
-        "task",
-        "recipe",
-        "programming language",
-        "note",
-        "concept",
-        "comparison",
-        "lists",
-        "notes",
-        "feelings",
-        "experience",
-        "design",
-        "hap",
-        "thought",
-        "wisdom",
-        "dream",
-        "misc"
+        "evt", "event", "app", "feeling", "tracker", "list", "phone", "sw", "company",
+        "person", "Book", "notes", "task", "recipe", "programming language", "note", "concept",
+        "comparison", "lists", "notes", "feelings", "experience", "design", "hap", "thought",
+        "wisdom", "dream", "misc"
     ) + (thought?.type ?: "misc")).toList()
     val adapter = ArrayAdapter(atv.context, R.layout.list_item, items)
     atv.setAdapter(adapter)
