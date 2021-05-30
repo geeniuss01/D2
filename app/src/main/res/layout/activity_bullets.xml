@@ -35,7 +35,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/bu_chip_all"
-                android:checked="true"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:onClick="@{(v)-> l.onClick(v)}"
                 android:layout_width="wrap_content"
@@ -54,6 +53,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/bu_chip_evt"
+                android:checked="true"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:onClick="@{(v)-> l.onClick(v)}"
                 android:layout_width="wrap_content"

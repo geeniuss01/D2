@@ -79,7 +79,7 @@ fun bindBulletType(atv: AutoCompleteTextView, thought: Thing?) {
         "evt", "event", "app", "feeling", "tracker", "list", "phone", "sw", "company",
         "person", "Book", "notes", "task", "recipe", "programming language", "note", "concept",
         "comparison", "lists", "notes", "feelings", "experience", "design", "hap", "thought",
-        "wisdom", "dream", "misc"
+        "wisdom", "dream", "misc", "journal"
     ) + (thought?.type ?: "misc")).toList()
     val adapter = ArrayAdapter(atv.context, R.layout.list_item, items)
     atv.setAdapter(adapter)
