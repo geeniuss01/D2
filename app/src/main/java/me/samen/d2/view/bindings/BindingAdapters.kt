@@ -1,11 +1,13 @@
 package me.samen.d2.view.bindings
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
+import com.google.android.material.textfield.TextInputEditText
 import me.samen.d2.R
 import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.Thing
@@ -46,7 +48,7 @@ fun bindPeople(textView: TextView, thing: ThingWithBullets, thoughtsViewModel: T
 
 @BindingAdapter("bind:tbullets", "bind:vm", requireAll = true)
 fun bindBullets(textView: TextView, thing: ThingWithBullets, thoughtsViewModel: ThoughtsVM) {
-    textView.setText(thing.bullets.joinToString(", "))
+    //textView.setText(thing.bullets.joinToString(", "))
 }
 
 @BindingAdapter("bind:burowdone", "bind:vm", requireAll = true)
@@ -70,6 +72,18 @@ fun bindBulletType(atv: AutoCompleteTextView, bullet: Bullet?) {
     atv.setAdapter(adapter)
     bullet?.type?.let { atv.setText(it, false) }
 }
+
+
+@BindingAdapter("bind:copyToClipboard", requireAll = true)
+fun bindCopyTeClipboard(atv: Button, editText: TextInputEditText) {
+    atv.setOnClickListener {
+        val clip = ClipData.newPlainText("Copied Text", editText.text)
+        (editText.context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager)
+            ?.setPrimaryClip(clip)
+        Toast.makeText(editText.context, "Copied", Toast.LENGTH_SHORT).show()
+    }
+}
+
 
 @BindingAdapter("bind:thought_type", requireAll = true)
 fun bindBulletType(atv: AutoCompleteTextView, thought: Thing?) {

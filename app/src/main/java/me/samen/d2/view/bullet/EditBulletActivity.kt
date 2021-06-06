@@ -53,7 +53,8 @@ class EditBulletActivity : AppCompatActivity(), Observer<Bullet?> {
         bulletVM.update(
             curBullet.copy(
                 desc = contentView.editDesc.text.toString(),
-                type = contentView.editType.text.toString()
+                type = contentView.editType.text.toString(),
+                ts = contentView.editDate.text.toString()
             )
         )
         finish()

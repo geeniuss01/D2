@@ -3,7 +3,6 @@ package me.samen.d2.data.entities
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 
 @Entity(tableName = "things")
 data class Thing(
@@ -21,12 +20,15 @@ data class Thing(
 
 data class ThingWithBullets(
     @Embedded
-    var thing: Thing? = null,
-    @Relation(
-        parentColumn = "id",
-        entity = Bullet::class,
-        entityColumn = "thought_id",
-        projection = ["desc"]
-    )
-    var bullets: List<String> = listOf()
+    var thing: Thing? = null
+    // below will cause bad UI, when bullets have more text, or count is more. Commented untill better UI
+    /* @Relation(
+         parentColumn = "id",
+         entity = Bullet::class,
+         entityColumn = "thought_id",
+         projection = ["desc"]
+     )
+     var bullets: List<String> = listOf()
+
+     */
 )
