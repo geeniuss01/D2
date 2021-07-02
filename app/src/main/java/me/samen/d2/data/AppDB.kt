@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import me.samen.d2.data.daos.BulletDao
+import me.samen.d2.data.daos.ObsNoteDao
 import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Bullet
 import me.samen.d2.data.entities.ObsNote
@@ -16,6 +17,7 @@ import me.samen.d2.data.entities.Thing
 abstract class AppDB : RoomDatabase() {
     abstract fun thingDao(): ThingDao
     abstract fun bulletDao(): BulletDao
+    abstract fun obsNoteDao(): ObsNoteDao
 
     companion object {
         private lateinit var INSTANCE: AppDB

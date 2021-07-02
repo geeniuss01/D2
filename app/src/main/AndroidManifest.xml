@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_dp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.bullet.EditBulletActivity"></activity>
+
+        <activity
+            android:name=".view.obsnote.ONoteDetailActivity"
+            android:label="@string/title_activity_o_note_detail"></activity>
+        <activity android:name=".view.bullet.EditBulletActivity" />
         <activity android:name=".view.bullet.BulletsActivity" />
         <activity android:name=".view.edit.EditActivity" />
-        <activity android:name=".view.main.ThoughtsActivity">
+        <activity android:name=".view.main.ThoughtsActivity"></activity>
+        <activity android:name=".view.obsnote.ONoteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

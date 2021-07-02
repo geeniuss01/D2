@@ -10,15 +10,22 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.TextInputEditText
 import me.samen.d2.R
 import me.samen.d2.data.entities.Bullet
+import me.samen.d2.data.entities.ObsNote
 import me.samen.d2.data.entities.Thing
 import me.samen.d2.data.entities.ThingWithBullets
 import me.samen.d2.view.bullet.BulletVM
 import me.samen.d2.view.main.ThoughtsVM
+import me.samen.d2.view.obsnote.ONoteVM
 
 @BindingAdapter("bind:tparent", "bind:vm", requireAll = true)
 fun bindTime(textView: View, thing: ThingWithBullets, thoughtsViewModel: ThoughtsVM) {
     textView.setOnClickListener { thoughtsViewModel.click(textView, thing) }
     textView.setOnLongClickListener { thoughtsViewModel.onLongPress(textView, thing) }
+}
+
+@BindingAdapter("bind:tparent", "bind:vm", requireAll = true)
+fun bindTime(textView: View, thing: ObsNote, thoughtsViewModel: ONoteVM) {
+    textView.setOnClickListener { thoughtsViewModel.click(textView, thing) }
 }
 
 @BindingAdapter("bind:ttype", "bind:vm", requireAll = true)
@@ -36,6 +43,11 @@ fun bindDesc(textView: TextView, thing: ThingWithBullets, thoughtsViewModel: Tho
     textView.setText(thing.thing?.desc)
 }
 
+@BindingAdapter("bind:tdesc", "bind:vm", requireAll = true)
+fun bindDesc(textView: TextView, thing: ObsNote?, thoughtsViewModel: ONoteVM) {
+    textView.setText(thing?.fileName)
+}
+
 @BindingAdapter("bind:ttags", "bind:vm", requireAll = true)
 fun bindTags(textView: TextView, thing: ThingWithBullets, thoughtsViewModel: ThoughtsVM) {
     textView.setText(thing.thing?.tags)
@@ -48,6 +60,11 @@ fun bindPeople(textView: TextView, thing: ThingWithBullets, thoughtsViewModel: T
 
 @BindingAdapter("bind:tbullets", "bind:vm", requireAll = true)
 fun bindBullets(textView: TextView, thing: ThingWithBullets, thoughtsViewModel: ThoughtsVM) {
+    //textView.setText(thing.bullets.joinToString(", "))
+}
+
+@BindingAdapter("bind:tbullets", "bind:vm", requireAll = true)
+fun bindBullets(textView: TextView, thing: ObsNote, thoughtsViewModel: ONoteVM) {
     //textView.setText(thing.bullets.joinToString(", "))
 }
 

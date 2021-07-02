@@ -29,6 +29,7 @@ data class Bullet(
 
 }
 
+@Entity
 data class ObsNote(
     @PrimaryKey() val fileName: String,
     val cont: String
