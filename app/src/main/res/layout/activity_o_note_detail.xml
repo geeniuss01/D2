@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/box_inset_layout_padding"
         tools:context=".view.obsnote.ONoteDetailActivity"
-        tools:deviceIds="wear">
+        >
 
         <ScrollView
             android:padding="10dp"
@@ -23,9 +23,8 @@
 
             <TextView
                 android:id="@+id/note_detail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@{notecontent}" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

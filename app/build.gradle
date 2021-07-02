@@ -65,4 +65,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_xv"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_xv"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_xv"
+    implementation "io.noties.markwon:core:4.6.2"
 }

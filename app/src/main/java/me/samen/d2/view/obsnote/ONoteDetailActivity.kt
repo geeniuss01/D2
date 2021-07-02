@@ -7,6 +7,7 @@ import me.samen.d2.R
 import me.samen.d2.data.BUNDLE_THING_CONTENT
 import me.samen.d2.data.BUNDLE_THING_ID
 import me.samen.d2.databinding.ActivityONoteDetailBinding
+import me.samen.d2.util.markwon
 
 class ONoteDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityONoteDetailBinding
@@ -19,6 +20,7 @@ class ONoteDetailActivity : AppCompatActivity() {
             return
         }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_o_note_detail)
-        binding.notecontent = content
+        //binding.notecontent = content
+        markwon(this).setMarkdown(binding.noteDetail, content)
     }
 }
