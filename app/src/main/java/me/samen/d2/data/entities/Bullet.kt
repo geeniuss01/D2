@@ -29,6 +29,11 @@ data class Bullet(
 
 }
 
+data class ObsNote(
+    @PrimaryKey() val fileName: String,
+    val cont: String
+)
+
 const val BULLET_TYPE_TODO = "todo"
 const val BULLET_TYPE_EVT = "evt"
 const val BULLET_TYPE_NOTE = "note"

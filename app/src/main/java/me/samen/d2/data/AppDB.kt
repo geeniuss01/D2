@@ -9,9 +9,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import me.samen.d2.data.daos.BulletDao
 import me.samen.d2.data.daos.ThingDao
 import me.samen.d2.data.entities.Bullet
+import me.samen.d2.data.entities.ObsNote
 import me.samen.d2.data.entities.Thing
 
-@Database(entities = [Thing::class, Bullet::class], version = 5)
+@Database(entities = [Thing::class, Bullet::class, ObsNote::class], version = 6)
 abstract class AppDB : RoomDatabase() {
     abstract fun thingDao(): ThingDao
     abstract fun bulletDao(): BulletDao
@@ -23,7 +24,7 @@ abstract class AppDB : RoomDatabase() {
         fun instance(context: Context): AppDB {
             if (!::INSTANCE.isInitialized) {
                 INSTANCE = Room.databaseBuilder(context, AppDB::class.java, "appdb")
-                    .addMigrations(M_2_3, M_3_4, M_4_5)
+                    .addMigrations(M_2_3, M_3_4, M_4_5, M_5_6)
                     .build()
             }
             return INSTANCE
@@ -44,6 +45,11 @@ abstract class AppDB : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE things ADD COLUMN lastOpened INTEGER NOT NULL DEFAULT 0")
                 database.execSQL("ALTER TABLE things ADD COLUMN lastTypeSetting TEXT NOT NULL DEFAULT 'todo'")
+            }
+        }
+        private val M_5_6 = object : Migration(5, 6) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `ObsNote` (`fileName` TEXT NOT NULL, `cont` TEXT NOT NULL, PRIMARY KEY(`fileName`))")
             }
         }
     }
